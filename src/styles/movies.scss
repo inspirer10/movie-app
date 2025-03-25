@@ -1,0 +1,51 @@
+.movies_section {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    //gap: 0.25rem;
+    .movie_card {
+        margin: 2rem 0;
+        width: 25%;
+        border-radius: 16px;
+        padding: 1.25rem;
+        img {
+            border-radius: 8px;
+            height: auto;
+            width: 100%;
+            object-fit: cover;
+        }
+        h3 {
+            color: white;
+            font-size: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .movie_info {
+            gap: 8px;
+            margin-top: 0.5rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+            span {
+                font-size: 1rem;
+                color: #e5e5e5;
+                user-select: none;
+            }
+            .star_icon {
+                width: 1rem;
+                height: 1rem;
+                color: rgb(255, 238, 0);
+            }
+            .lang,
+            .date {
+                text-transform: uppercase;
+                color: #e5e5e5;
+                font-weight: 500;
+                font-size: 1rem;
+            }
+        }
+    }
+}
