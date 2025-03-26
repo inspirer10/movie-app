@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
 import MovieCard from './MovieCard';
+import { useDebounce } from 'react-use';
 
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
@@ -16,10 +17,17 @@ const API_OPTIONS = {
 function Header() {
     const [searchItem, setSearchItem] = useState('');
     const [moviesList, setMoviesList] = useState([]);
+    const [debouncedSearchItem, setDebouncedSearchItem] = useState('');
 
-    const fetchMovies = async () => {
+    useDebounce(() => setDebouncedSearchItem(searchItem), 500, [searchItem]);
+
+    const fetchMovies = async (query = '') => {
         try {
-            const endpoint = `${API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
+            const endpoint = query
+                ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(
+                      query
+                  )}`
+                : `${API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
             const response = await fetch(endpoint, API_OPTIONS);
 
             if (!response.ok) {
@@ -35,8 +43,8 @@ function Header() {
     };
 
     useEffect(() => {
-        fetchMovies();
-    }, []);
+        fetchMovies(debouncedSearchItem);
+    }, [debouncedSearchItem]);
 
     return (
         <header>

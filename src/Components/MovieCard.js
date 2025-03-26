@@ -9,7 +9,7 @@ function MovieCard({ title, rating, poster, release_date, original_language }) {
                 src={
                     poster
                         ? `https://image.tmdb.org/t/p/w500${poster}`
-                        : `/no-movie.png`
+                        : `/no-poster.png`
                 }
                 alt={`${title} poster`}
                 height={500}
